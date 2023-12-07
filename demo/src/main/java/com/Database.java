@@ -169,10 +169,8 @@ public class Database {
                     System.out.println("No Attendance Record Found for Student #" + student_number + "on " + date
                             + " at Course #" + course_id);
                 } else {
-                    System.out.println("Attendance for: " + result.getString("course_name"));
-                    while (result.next()) {
-
-                    }
+                    System.out.println(
+                            student_number + " is present on " + result.getString("course_name") + " at " + date);
                 }
             } catch (SQLException e) {
                 System.out.println(e);
