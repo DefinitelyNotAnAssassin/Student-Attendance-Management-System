@@ -1,13 +1,15 @@
 package com;
 
+import com.example.Course;
+import com.example.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-import org.sqlite.SQLiteException;
+import java.time.LocalDate;
+import java.sql.Date;
 
 public class Database {
     public Connection conn = null;
@@ -74,28 +76,6 @@ public class Database {
         }
     }
 
-    public void createAccount(String firstname, String middlename, String lastname, String program, String section,
-            String student_number, int age) {
-        String sql = "INSERT INTO student_account (firstname, middlename, lastname, program, section, student_number, age) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-
-            PreparedStatement statement = conn.prepareStatement(sql);
-
-            statement.setString(1, firstname);
-            statement.setString(2, middlename);
-            statement.setString(3, lastname);
-            statement.setString(4, program);
-            statement.setString(5, section);
-            statement.setString(6, student_number);
-            statement.setInt(7, age);
-
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
-
     public boolean isAccountExisting(String firstname, String lastname, String student_number) throws SQLException {
         ResultSet result = executeSearch(
                 "SELECT * FROM student_account WHERE firstname = " + firstname + " AND lastname = "
@@ -107,6 +87,153 @@ public class Database {
 
             return true;
         }
+    }
+
+    public void studentAttendance(String student_number, int course_id) {
+
+        try {
+
+            Date today = Date.valueOf(LocalDate.now());
+
+            String isExisting = "SELECT * FROM Attendance WHERE student_id = " + student_number + " "
+                    + "AND attendance_date = " + '\'' + today + "\' " + " AND course_id = " + course_id
+                    + " AND is_present = 1";
+            System.out.println(isExisting);
+            ResultSet present = executeSearch(isExisting);
+
+            if (!present.isBeforeFirst()) {
+                String sql = "INSERT INTO Attendance (student_id, attendance_date, is_present, course_id) VALUES (?, ?, ?, ?)";
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1, student_number);
+                statement.setString(2, today.toString());
+                statement.setInt(3, 1);
+                statement.setInt(4, course_id);
+                statement.execute();
+                System.out.println("" + student_number + " Attendance Success.");
+            } else {
+                System.out.println("Attendance / Student Already Present for " + today + "at Course #" + course_id);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void createAccount(String username, String password, String student_number, String first_name,
+            String last_name, String birthdate, String email) {
+        String sql = "INSERT INTO Students (username, password, student_number, first_name, last_name, birthdate, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.setString(3, student_number);
+            statement.setString(4, first_name);
+            statement.setString(5, last_name);
+            statement.setString(6, birthdate);
+            statement.setString(7, email);
+
+            statement.execute();
+            System.out.println("Account Created");
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public User authenticateAccount(String username, String password) {
+        String authenticate = "SELECT * FROM Students WHERE username = " + "\'" + username + "\' " + "AND password = "
+                + '\'' + password + '\'';
+
+        try {
+            ResultSet result = executeSearch(authenticate);
+            if (!result.isBeforeFirst()) {
+                System.out.println("Incorrect Username / Password");
+                User user = new User();
+                return user;
+            } else {
+                System.out.println("Account Authenticated");
+
+                while (result.next()) {
+                    String first_name, last_name, email, student_number;
+                    String birthDate;
+
+                    first_name = result.getString("first_name");
+                    last_name = result.getString("last_name");
+                    birthDate = result.getString("birthdate");
+                    email = result.getString("email");
+                    student_number = result.getString("student_number");
+                    User account = new User(username, first_name, last_name, email, birthDate, student_number);
+                    return account;
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+
+    }
+
+    public void createCourse(String course_name, String course_code) {
+        String sql = "INSERT INTO Courses (course_name, course_code) VALUES (?, ?)";
+        try {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, course_name);
+            statement.setString(2, course_code);
+            statement.execute();
+
+            System.out.println("Course Added");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void viewCourse(String course_code) {
+        String sql = "SELECT * FROM Courses WHERE course_code = " + "\'" + course_code + "\'";
+
+        ResultSet result = executeSearch(sql);
+        try {
+            if (!result.isBeforeFirst()) {
+                System.out.println("Invalid Course Code");
+            } else {
+
+                while (result.next()) {
+                    System.out.println("Course ID: " + result.getInt("course_id"));
+                    System.out.println("Course Name: " + result.getString("course_name"));
+                    System.out.println("Course Code: " + result.getString("course_code"));
+
+                }
+            }
+        }
+
+        catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public Course getCourse(String course_code) {
+        String sql = "SELECT * FROM Courses WHERE course_code = " + '\'' + course_code + '\'';
+        System.out.println(sql);
+        ResultSet result = executeSearch(sql);
+        try {
+            if (!result.isBeforeFirst()) {
+                System.out.println("Invalid Course Code");
+                return null;
+            } else {
+
+                while (result.next()) {
+                    Course c = new Course(result.getString("course_name"), result.getString("course_code"),
+                            result.getInt("course_id"));
+                    return c;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
 }

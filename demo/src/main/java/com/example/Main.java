@@ -1,10 +1,13 @@
 package com.example;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+
 import com.Database;
 
 public class Main {
@@ -16,8 +19,18 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Database db = new Database();
 
-        db.connect("students.db");
+        db.connect("StudentAttendance.db");
 
-        System.out.println(db.isAccountExisting("'Winmari'", "'Manzano'", "'202200815'"));
+        // db.createAccount("winmari22", "1234", "202200815", "Winmari", "Manzano",
+        // "09/22/2022",
+        // "winmari.manzano@sdca.edu.ph");
+
+        User current_user = db.authenticateAccount("winmari22", "1234");
+        // db.createCourse("Computer Concepts and Fundamentals", "IT100");
+
+        Course current_course = db.getCourse("IT100");
+
+        db.studentAttendance(current_user.student_number, current_course.course_id);
+
     }
 }
