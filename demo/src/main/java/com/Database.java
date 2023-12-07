@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+
+import org.sqlite.SQLiteException;
+
 import java.sql.Date;
 
 public class Database {
@@ -76,17 +79,22 @@ public class Database {
         }
     }
 
-    public boolean isAccountExisting(String firstname, String lastname, String student_number) throws SQLException {
-        ResultSet result = executeSearch(
-                "SELECT * FROM student_account WHERE firstname = " + firstname + " AND lastname = "
-                        + lastname + " AND student_number = " + student_number);
+    public boolean isAccountExisting(String student_number) {
+        ResultSet result = executeSearch("SELECT * FROM Students WHERE student_number = " + student_number);
+        try {
+            if (!result.isBeforeFirst()) {
+                return false;
+            } else {
 
-        if (!result.isBeforeFirst()) {
-            return false;
-        } else {
-
-            return true;
+                return true;
+            }
         }
+
+        catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+
     }
 
     public void studentAttendance(String student_number, int course_id) {
@@ -116,6 +124,62 @@ public class Database {
 
         } catch (SQLException e) {
             System.out.println(e);
+        }
+    }
+
+    public void viewStudentAttendance(String student_number) {
+
+        try {
+
+            if (isAccountExisting(student_number)) {
+                String sql = "SELECT Attendance.is_present,Attendance.attendance_date, Attendance.student_id, Courses.course_name, Courses.course_code FROM attendance JOIN Courses on Attendance.course_id = Courses.course_id  WHERE Attendance.student_id = "
+                        + student_number;
+                ResultSet result = executeSearch(sql);
+
+                if (!result.isBeforeFirst()) {
+                    System.out.println("No Attendance Record Found for Student #" + student_number);
+                } else {
+                    while (result.next()) {
+                        System.out.println(
+                                "==============================================================================");
+                        System.out.println("Course Name: " + result.getString("course_name"));
+                        System.out.println("Course Code: " + result.getString("course_code"));
+                        System.out.println("Date: " + result.getString("attendance_date"));
+                        System.out.println(
+                                "==============================================================================");
+                        System.out.println("\n\n");
+                    }
+                }
+            } else {
+                System.out.println("Invalid Student Number");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void isPresent(String student_number, String date, int course_id) {
+        if (isAccountExisting(student_number)) {
+            String sql = "SELECT Attendance.is_present, Attendance.attendance_date, Courses.course_name, Courses.course_code FROM Attendance JOIN Courses ON Attendance.course_id = Courses.course_id WHERE Attendance.attendance_date = "
+                    + '\'' + date + '\''
+                    + " AND student_id = " + student_number + " AND Attendance.course_id = " + course_id;
+            try {
+                ResultSet result = executeSearch(sql);
+                if (!result.isBeforeFirst()) {
+                    System.out.println("No Attendance Record Found for Student #" + student_number + "on " + date
+                            + " at Course #" + course_id);
+                } else {
+                    System.out.println("Attendance for: " + result.getString("course_name"));
+                    while (result.next()) {
+
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+
+        } else {
+            System.out.println("Invalid Student Number");
         }
     }
 

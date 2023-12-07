@@ -30,7 +30,8 @@ public class Main {
 
         Course current_course = db.getCourse("IT100");
 
-        db.studentAttendance(current_user.student_number, current_course.course_id);
-
+        // db.studentAttendance(current_user.student_number, current_course.course_id);
+        db.viewStudentAttendance(current_user.student_number);
+        db.isPresent(current_user.student_number, "2023-12-07", current_course.course_id);
     }
 }
