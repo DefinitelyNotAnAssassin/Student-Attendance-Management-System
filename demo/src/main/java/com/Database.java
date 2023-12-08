@@ -7,10 +7,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.time.LocalDate;
-
-import org.sqlite.SQLiteException;
 
 import java.sql.Date;
 
@@ -298,4 +297,25 @@ public class Database {
         return null;
     }
 
+    public void loopThroughResultSet(ResultSet resultSet) {
+        try {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (resultSet.next()) {
+                System.out.println("Row:");
+
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    Object columnValue = resultSet.getObject(i);
+
+                    System.out.println("  " + columnName + ": " + columnValue);
+                }
+
+                System.out.println(); // Separate rows with an empty line
+            }
+        } catch (SQLException e) {
+            System.out.println("Error while looping through ResultSet: " + e.getMessage());
+        }
+    }
 }
