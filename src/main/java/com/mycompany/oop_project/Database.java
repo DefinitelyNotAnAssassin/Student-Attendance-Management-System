@@ -1,23 +1,25 @@
-package com.mycompany.oop_project;
+package com.mycompany.attendancemanagementsystem;
 
-
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.time.LocalDate;
-
 import org.sqlite.SQLiteException;
-
 import java.sql.Date;
+import javax.swing.JOptionPane;
+
+
 
 public class Database {
     public Connection conn = null;
 
     public void connect(String database_name) {
-        String database_url = "jdbc:sqlite:C:\\Users\\Winmri\\Documents\\NetBeansProjects\\OOP_Project\\src\\main\\java\\com\\mycompany\\oop_project\\" + database_name;
+        String database_url = "jdbc:sqlite:D:\\zaph\\Documents\\NetBeansProjects\\OOP_Project\\src\\main\\java\\com\\mycompany\\oop_project\\" + database_name;
 
         try {
             this.conn = DriverManager.getConnection(database_url);
@@ -49,6 +51,30 @@ public class Database {
             return result;
         }
     }
+    
+  public void loopThroughResultSet(ResultSet resultSet) {
+    try {
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+
+        while (resultSet.next()) {
+            System.out.println("Row:");
+
+            for (int i = 1; i <= columnCount; i++) {
+                String columnName = metaData.getColumnName(i);
+                Object columnValue = resultSet.getObject(i);
+
+                System.out.println("  " + columnName + ": " + columnValue);
+            }
+
+            System.out.println(); // Separate rows with an empty line
+        }
+    } catch (SQLException e) {
+        System.out.println("Error while looping through ResultSet: " + e.getMessage());
+    }
+}
+
+    
 
     public void viewResult(ResultSet result) {
         try {
@@ -210,11 +236,15 @@ public class Database {
         try {
             ResultSet result = executeSearch(authenticate);
             if (!result.isBeforeFirst()) {
-                System.out.println("Incorrect Username / Password");
+               JOptionPane.showMessageDialog(null, "Incorrect username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                
+                
+                
+                
                 User user = new User();
                 return user;
             } else {
-                System.out.println("Account Authenticated");
+                JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 while (result.next()) {
                     String first_name, last_name, email, student_number;
@@ -297,4 +327,46 @@ public class Database {
         return null;
     }
 
+        public String replaceWildcards(String query, String... keyValues) {
+    if (keyValues.length % 2 != 0) {
+        throw new IllegalArgumentException("Number of key-value pairs must be even.");
+    }
+
+    for (int i = 0; i < keyValues.length; i += 2) {
+        String wildcard = keyValues[i];
+        String replacement = keyValues[i + 1];
+        query = query.replace(wildcard, replacement);
+    }
+
+    return query;
+    }
+
+    public void updateAccount(String username, String password, String student_number, String first_name,
+                          String last_name, String birthdate, String email) {
+    String sql = "UPDATE Students SET username = ?, password = ?, student_number = ?, first_name = ?, " +
+            "last_name = ?, birthdate = ?, email  = ? WHERE student_number = ?";
+
+    try {
+        PreparedStatement statement = conn.prepareStatement(sql);
+        statement.setString(1, username);
+        statement.setString(2, password);
+        statement.setString(3, student_number);
+        statement.setString(4, first_name);
+        statement.setString(5, last_name);
+        statement.setString(6, birthdate);
+        statement.setString(7, email);
+        statement.setString(8, student_number);
+        statement.execute();
+        System.out.println("Account Updated");
+
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+}
+    
+    public void deleteAccount(String student_number) {
+    executeStatement("DELETE FROM Students WHERE student_number = " + student_number);
+    System.out.println("Account Deleted");
+}
+    
 }
