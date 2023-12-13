@@ -17,8 +17,12 @@ public class LoginForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel14 = new javax.swing.JLabel();
         bg = new javax.swing.JLayeredPane();
         panelCover1 = new com.raven.component.PanelCover();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         ButtonSignin = new javax.swing.JButton();
@@ -34,6 +38,8 @@ public class LoginForm extends javax.swing.JFrame {
         Disable = new javax.swing.JLabel();
         Show = new javax.swing.JLabel();
 
+        jLabel14.setText("jLabel14");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -47,18 +53,46 @@ public class LoginForm extends javax.swing.JFrame {
         bg.setOpaque(true);
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Logo_white.png"))); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Constantia", 1, 30)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("SYSTEM");
+
+        jLabel12.setFont(new java.awt.Font("Constantia", 1, 30)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 246, 252));
+        jLabel12.setText("ATTENDANCE MANAGEMENT");
+
         javax.swing.GroupLayout panelCover1Layout = new javax.swing.GroupLayout(panelCover1);
         panelCover1.setLayout(panelCover1Layout);
         panelCover1Layout.setHorizontalGroup(
             panelCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(panelCover1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(panelCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCover1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(151, 151, 151)))
+                .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCover1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(35, 35, 35))
         );
         panelCover1Layout.setVerticalGroup(
             panelCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGroup(panelCover1Layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(jLabel9)
+                .addGap(113, 113, 113)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addContainerGap(361, Short.MAX_VALUE))
         );
 
-        bg.add(panelCover1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        bg.add(panelCover1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -187,16 +221,14 @@ public class LoginForm extends javax.swing.JFrame {
         
          Database db = new Database();
 
-        db.connect("StudentAttendance.db");
-        
+         db.connect("StudentAttendance.db");
         
          String username = txtUser.getText();
          String password = txtPass.getText();
-        
-        
-        db.authenticateAccount(username, password);
+               
+         db.authenticateAccount(username, password);
        
-   
+        
         
     }//GEN-LAST:event_ButtonSigninActionPerformed
 
@@ -285,6 +317,9 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLayeredPane bg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -292,6 +327,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private com.raven.component.PanelCover panelCover1;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;

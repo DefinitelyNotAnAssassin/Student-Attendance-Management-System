@@ -1,6 +1,6 @@
-package com.mycompany.oop_project;
+package com.mycompany.attendancemanagementsystem;
 
-import com.mycompany.oop_project.Database;
+import com.mycompany.attendancemanagementsystem.Database;
 
 public class Login {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.mycompany.oop_project;
+package com.mycompany.attendancemanagementsystem;
 
 import java.sql.Date;
 import java.sql.ResultSet;

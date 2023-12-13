@@ -1,6 +1,7 @@
 package com.mycompany.attendancemanagementsystem;
 
 import java.awt.Component;
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,10 +17,11 @@ import javax.swing.JOptionPane;
 
 
 public class Database {
+      
     public Connection conn = null;
 
     public void connect(String database_name) {
-        String database_url = "jdbc:sqlite:D:\\zaph\\Documents\\NetBeansProjects\\OOP_Project\\src\\main\\java\\com\\mycompany\\oop_project\\" + database_name;
+        String database_url = "jdbc:sqlite:D:\\VB.NET\\AttendanceManagementSystem\\src\\main\\java\\com\\mycompany\\attendancemanagementsystem\\" + database_name;
 
         try {
             this.conn = DriverManager.getConnection(database_url);
@@ -29,6 +31,9 @@ public class Database {
         }
 
     }
+   
+     
+    
 
     public void executeStatement(String sql) {
         try {
@@ -151,6 +156,7 @@ public class Database {
             System.out.println(e);
         }
     }
+    
 
     public void viewStudentAttendance(String student_number) {
 
@@ -222,10 +228,10 @@ public class Database {
             statement.setString(7, email);
 
             statement.execute();
-            System.out.println("Account Created");
+             JOptionPane.showMessageDialog(null, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error creating account: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -327,46 +333,5 @@ public class Database {
         return null;
     }
 
-        public String replaceWildcards(String query, String... keyValues) {
-    if (keyValues.length % 2 != 0) {
-        throw new IllegalArgumentException("Number of key-value pairs must be even.");
-    }
-
-    for (int i = 0; i < keyValues.length; i += 2) {
-        String wildcard = keyValues[i];
-        String replacement = keyValues[i + 1];
-        query = query.replace(wildcard, replacement);
-    }
-
-    return query;
-    }
-
-    public void updateAccount(String username, String password, String student_number, String first_name,
-                          String last_name, String birthdate, String email) {
-    String sql = "UPDATE Students SET username = ?, password = ?, student_number = ?, first_name = ?, " +
-            "last_name = ?, birthdate = ?, email  = ? WHERE student_number = ?";
-
-    try {
-        PreparedStatement statement = conn.prepareStatement(sql);
-        statement.setString(1, username);
-        statement.setString(2, password);
-        statement.setString(3, student_number);
-        statement.setString(4, first_name);
-        statement.setString(5, last_name);
-        statement.setString(6, birthdate);
-        statement.setString(7, email);
-        statement.setString(8, student_number);
-        statement.execute();
-        System.out.println("Account Updated");
-
-    } catch (SQLException e) {
-        System.out.println(e);
-    }
-}
-    
-    public void deleteAccount(String student_number) {
-    executeStatement("DELETE FROM Students WHERE student_number = " + student_number);
-    System.out.println("Account Deleted");
-}
     
 }

@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import org.sqlite.SQLiteException;
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 public class CreateAccount extends javax.swing.JFrame {
 
@@ -518,8 +519,20 @@ public class CreateAccount extends javax.swing.JFrame {
         String bday = CreateBirthdate.getText();
         String email = CreateEmail.getText();
         
+         // Check if the account already exists
+    if (db.isAccountExisting(studentnumber)) {
+        JOptionPane.showMessageDialog(null, "Account with student number " + studentnumber + " already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        // Account doesn't exist, proceed to create
         db.createAccount(username, password, studentnumber, fname, lname, bday, email);
-
+        this.setVisible(false);
+        LoginForm login = new LoginForm();
+        login.setVisible(true);
+    }
+               
+     
+        
+        
         
         
     }//GEN-LAST:event_ButtonCreateActionPerformed
