@@ -3,7 +3,7 @@ import java.awt.Color;
 
 public class AttendanceForm extends javax.swing.JFrame {
 
-    public AttendanceForm() {
+    public AttendanceForm(User current_user) {
         initComponents();
                 
     }
@@ -119,8 +119,14 @@ public class AttendanceForm extends javax.swing.JFrame {
       
     
     private void ButtonAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAttendanceActionPerformed
-    
-           
+        Database db = new Database();
+        db.connect("StudentAttendance.db")
+        Course current_course = db.getCourse(txtCourseID.getText());
+        
+        //db.studentAttendance()
+        // get_the_current_user_from_the_login
+
+        db.studentAttendance(current_user.student_number, current_course.course_id);
   
     }//GEN-LAST:event_ButtonAttendanceActionPerformed
 
@@ -176,7 +182,7 @@ public class AttendanceForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AttendanceForm().setVisible(true);
+                new AttendanceForm(null).setVisible(true);
             }
         });
     }

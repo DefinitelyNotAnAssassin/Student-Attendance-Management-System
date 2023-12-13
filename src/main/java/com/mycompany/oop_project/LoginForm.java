@@ -226,7 +226,13 @@ public class LoginForm extends javax.swing.JFrame {
          String username = txtUser.getText();
          String password = txtPass.getText();
                
-         db.authenticateAccount(username, password);
+         User current_user =  db.authenticateAccount(username, password);
+
+         AttendanceForm af = new AttendanceForm(current_user);
+         AttendanceForm.setVisible(true);
+         this.dispose();
+
+         
        
         
         
