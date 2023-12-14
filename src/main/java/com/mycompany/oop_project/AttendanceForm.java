@@ -3,9 +3,9 @@ import java.awt.Color;
 
 public class AttendanceForm extends javax.swing.JFrame {
 
-    public AttendanceForm(User current_user) {
+     public AttendanceForm(User current_user) {
         initComponents();
-                
+      
     }
 
     
@@ -14,33 +14,29 @@ public class AttendanceForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        ButtonAttendance = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        ButtonAttendance = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtCourseID = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         panelCover2 = new com.raven.component.PanelCover();
+        btn5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jLayeredPane1.setBackground(new java.awt.Color(255, 249, 245));
         jLayeredPane1.setForeground(new java.awt.Color(255, 255, 255));
         jLayeredPane1.setOpaque(true);
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ButtonAttendance.setBackground(new java.awt.Color(189, 0, 0));
-        ButtonAttendance.setFont(new java.awt.Font("Segoe UI Semibold", 1, 36)); // NOI18N
-        ButtonAttendance.setForeground(new java.awt.Color(255, 255, 255));
-        ButtonAttendance.setText("PRESENT");
-        ButtonAttendance.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ButtonAttendance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonAttendanceActionPerformed(evt);
-            }
-        });
-        jLayeredPane1.add(ButtonAttendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 540, 340, 70));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -62,13 +58,28 @@ public class AttendanceForm extends javax.swing.JFrame {
                 jLabel1MouseExited(evt);
             }
         });
-        jLayeredPane1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 10, -1, -1));
+        jLayeredPane1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 10, 30, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Weelcomeeee.png"))); // NOI18N
-        jLayeredPane1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-360, -70, 1470, 280));
+        jLayeredPane1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-360, -70, 1500, 280));
 
-        jLabel6.setText("__________________________________________________________________");
-        jLayeredPane1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, 340, -1));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ButtonAttendance.setBackground(new java.awt.Color(189, 0, 0));
+        ButtonAttendance.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        ButtonAttendance.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonAttendance.setText("PRESENT");
+        ButtonAttendance.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ButtonAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAttendanceActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ButtonAttendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 210, 50));
+
+        jLabel6.setText("___________________________________");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 250, -1));
 
         txtCourseID.setFont(txtCourseID.getFont().deriveFont(txtCourseID.getFont().getSize()+2f));
         txtCourseID.setBorder(null);
@@ -77,59 +88,126 @@ public class AttendanceForm extends javax.swing.JFrame {
                 txtCourseIDActionPerformed(evt);
             }
         });
-        jLayeredPane1.add(txtCourseID, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 340, 32));
+        jPanel1.add(txtCourseID, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 277, 32));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Enter Course ID");
-        jLayeredPane1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 390, 360, -1));
+        jLabel4.setText("Enter Course code");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 140, -1));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
+        jLabel8.setText("Attendance Management System");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 34, -1, -1));
+
+        jLayeredPane1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 380, 350));
+
+        getContentPane().add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(122, 0, 830, 650));
+
+        btn5.setBackground(new java.awt.Color(102, 0, 0));
+        btn5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn5MouseClicked(evt);
+            }
+        });
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Logout.png"))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("SIGN OUT");
+
+        javax.swing.GroupLayout btn5Layout = new javax.swing.GroupLayout(btn5);
+        btn5.setLayout(btn5Layout);
+        btn5Layout.setHorizontalGroup(
+            btn5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn5Layout.createSequentialGroup()
+                .addGroup(btn5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(btn5Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel5))
+                    .addGroup(btn5Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel3)))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+        btn5Layout.setVerticalGroup(
+            btn5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Logo_white.png"))); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("STUDENT");
 
         javax.swing.GroupLayout panelCover2Layout = new javax.swing.GroupLayout(panelCover2);
         panelCover2.setLayout(panelCover2Layout);
         panelCover2Layout.setHorizontalGroup(
             panelCover2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCover2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(panelCover2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
+            .addGroup(panelCover2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelCover2Layout.setVerticalGroup(
             panelCover2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 780, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCover2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 448, Short.MAX_VALUE)
+                .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelCover2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1090, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelCover2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(panelCover2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 650));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-//private String student_number = "123456"; // Replace with actual student number
-//private int course_id = 101; // Replace with actual course ID
-      
+   
     
     private void ButtonAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAttendanceActionPerformed
-        Database db = new Database();
-        db.connect("StudentAttendance.db")
-        Course current_course = db.getCourse(txtCourseID.getText());
-        
-        //db.studentAttendance()
-        // get_the_current_user_from_the_login
+    
+             Database db = new Database();
 
-        db.studentAttendance(current_user.student_number, current_course.course_id);
-  
+         db.connect("StudentAttendance.db");
+         String course_code = txtCourseID.getText();
+                     
+          Course course = db.getCourse(course_code);
+         txtCourseID.setText("");
+         
+        if (course == null) {
+        
+        return; 
+    }
+
+    
+    String student_number = "202201172"; 
+    int course_id = 1; 
+    
+    db.studentAttendance(student_number, course_id);
+       
+         
     }//GEN-LAST:event_ButtonAttendanceActionPerformed
 
+    
+    
+    
+    
     private void jLabel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseDragged
         int x = evt.getXOnScreen() - jLabel1.getWidth() / 2;
         int y = evt.getYOnScreen() - jLabel1.getHeight() / 2;
@@ -149,8 +227,23 @@ public class AttendanceForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseExited
 
     private void txtCourseIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCourseIDActionPerformed
-        // TODO add your handling code here:
+       
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_txtCourseIDActionPerformed
+
+    private void btn5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn5MouseClicked
+        // TODO add your handling code here:
+
+        LoginForm login = new LoginForm();
+        login.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_btn5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -182,18 +275,25 @@ public class AttendanceForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AttendanceForm(null).setVisible(true);
+                new AttendanceForm(null).setVisible(true);;
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAttendance;
+    private javax.swing.JPanel btn5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel1;
     private com.raven.component.PanelCover panelCover2;
     private javax.swing.JTextField txtCourseID;
     // End of variables declaration//GEN-END:variables

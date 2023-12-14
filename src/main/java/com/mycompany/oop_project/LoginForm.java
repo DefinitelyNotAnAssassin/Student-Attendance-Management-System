@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 
 public class LoginForm extends javax.swing.JFrame {
-
+    User current_user;
   
     public LoginForm() {
         initComponents();
@@ -219,23 +219,35 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void ButtonSigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSigninActionPerformed
         
-         Database db = new Database();
+    Database db = new Database();
+    db.connect("StudentAttendance.db");
 
-         db.connect("StudentAttendance.db");
-        
-         String username = txtUser.getText();
-         String password = txtPass.getText();
-               
+    String username = txtUser.getText();
+    String password = txtPass.getText();
+
+    User authenticatedUser = db.authenticateAccount(username, password);
+
+    if ("Admin1".equals(username) && "Admin123".equals(password)) {
+        AdminForm adminForm = new AdminForm();
+        adminForm.setVisible(true);
+        this.dispose();
+    } 
+    // Regular user login condition
+    else {
          User current_user =  db.authenticateAccount(username, password);
 
-         AttendanceForm af = new AttendanceForm(current_user);
-         AttendanceForm.setVisible(true);
-         this.dispose();
-
-         
-       
-        
-        
+        if (authenticatedUser != null) {
+            AttendanceForm af = new AttendanceForm(current_user);
+            af.setVisible(true);
+            this.dispose();
+        } else {
+           // JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+     
+    
     }//GEN-LAST:event_ButtonSigninActionPerformed
 
     private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited

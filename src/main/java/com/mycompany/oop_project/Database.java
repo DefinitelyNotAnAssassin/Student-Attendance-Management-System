@@ -147,9 +147,9 @@ public class Database {
                 statement.setInt(3, 1);
                 statement.setInt(4, course_id);
                 statement.execute();
-                System.out.println("" + student_number + " Attendance Success.");
+                JOptionPane.showMessageDialog(null, student_number + " Attendance Success.");
             } else {
-                System.out.println("Attendance / Student Already Present for " + today + "at Course #" + course_id);
+                 JOptionPane.showMessageDialog(null, "Attendance / Student Already Present for " + today + " at Course number " + course_id);
             }
 
         } catch (SQLException e) {
@@ -317,10 +317,10 @@ public class Database {
         ResultSet result = executeSearch(sql);
         try {
             if (!result.isBeforeFirst()) {
-                System.out.println("Invalid Course Code");
+                JOptionPane.showMessageDialog(null, "Invalid Course Code", "Error", JOptionPane.ERROR_MESSAGE);
                 return null;
             } else {
-
+               
                 while (result.next()) {
                     Course c = new Course(result.getString("course_name"), result.getString("course_code"),
                             result.getInt("course_id"));
@@ -332,6 +332,30 @@ public class Database {
         }
         return null;
     }
-
+    
+    
+    /*
+    public Course getCourseID(String course_id) {
+        String sql = "SELECT * FROM Courses WHERE course_id = " + '\'' + course_id + '\'';
+        System.out.println(sql);
+        ResultSet result = executeSearch(sql);
+        try {
+            if (!result.isBeforeFirst()) {
+                System.out.println("Invalid Course Code");
+                return null;
+            } else {
+               
+                while (result.next()) {
+                    Course c = new Course(result.getString("course_name"), result.getString("course_code"),
+                            result.getInt("course_id"));
+                    return c;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+*/
     
 }

@@ -28,8 +28,13 @@ public class CreateAccount extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel9 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         bg = new javax.swing.JLayeredPane();
         panelCover1 = new com.raven.component.PanelCover();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         ButtonCreate = new javax.swing.JButton();
@@ -66,6 +71,14 @@ public class CreateAccount extends javax.swing.JFrame {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/User_5.png"))); // NOI18N
 
+        jLabel28.setFont(new java.awt.Font("Constantia", 1, 30)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("SYSTEM");
+
+        jLabel29.setFont(new java.awt.Font("Constantia", 1, 30)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 246, 252));
+        jLabel29.setText("ATTENDANCE MANAGEMENT");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -78,15 +91,44 @@ public class CreateAccount extends javax.swing.JFrame {
         bg.setForeground(new java.awt.Color(255, 255, 255));
         bg.setOpaque(true);
 
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Logo_white.png"))); // NOI18N
+
+        jLabel30.setFont(new java.awt.Font("Constantia", 1, 30)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("SYSTEM");
+
+        jLabel31.setFont(new java.awt.Font("Constantia", 1, 30)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 246, 252));
+        jLabel31.setText("ATTENDANCE MANAGEMENT");
+
         javax.swing.GroupLayout panelCover1Layout = new javax.swing.GroupLayout(panelCover1);
         panelCover1.setLayout(panelCover1Layout);
         panelCover1Layout.setHorizontalGroup(
             panelCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(panelCover1Layout.createSequentialGroup()
+                .addGroup(panelCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCover1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(panelCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCover1Layout.createSequentialGroup()
+                                .addComponent(jLabel30)
+                                .addGap(151, 151, 151))))
+                    .addGroup(panelCover1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel27)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         panelCover1Layout.setVerticalGroup(
             panelCover1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(panelCover1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(155, 155, 155)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel30)
+                .addContainerGap(412, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -375,7 +417,8 @@ public class CreateAccount extends javax.swing.JFrame {
                         .addComponent(ButtonCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(170, 170, 170)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,7 +525,7 @@ public class CreateAccount extends javax.swing.JFrame {
             .addComponent(bg)
         );
 
-        setSize(new java.awt.Dimension(994, 826));
+        setSize(new java.awt.Dimension(975, 826));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -643,7 +686,12 @@ public class CreateAccount extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
