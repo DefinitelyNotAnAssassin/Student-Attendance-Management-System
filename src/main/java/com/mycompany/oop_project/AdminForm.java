@@ -14,14 +14,14 @@ public class AdminForm extends javax.swing.JFrame {
         initComponents();
         Database db = new Database();
         db.connect();
-        String sql  = "SELECT * FROM Attendance";
+        String sql  = "SELECT s.student_number, c.course_name, a.attendance_id, a.is_present, a.attendance_date  FROM Attendance a INNER JOIN Students s ON a.student_id = s.student_number INNER JOIN Courses c ON a.course_id = c.course_id ORDER BY attendance_id DESC";
         ResultSet set = db.executeSearch(sql);
         
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0);
         try {
             while (set.next()){
-                Object[] row = {set.getInt("attendance_id"), set.getInt("attendance_id"), set.getInt("course_id"), set.getString("attendance_date"), set.getInt("is_present")};
+                Object[] row = {set.getInt("a.attendance_id"), set.getString("student_number"), set.getString("course_name"), set.getString("attendance_date"), set.getInt("is_present")};
                 tableModel.addRow(row);
             }
         } catch (SQLException ex) {
@@ -917,15 +917,15 @@ public class AdminForm extends javax.swing.JFrame {
         onLeaveClick(btn4);
         Database db = new Database();
         db.connect();
-        String sql  = "SELECT * FROM Attendance ORDER BY attendance_id DESC";
+        String sql = "SELECT s.student_number, c.course_name, a.attendance_id, a.is_present, a.attendance_date  FROM Attendance a INNER JOIN Students s ON a.student_id = s.student_number INNER JOIN Courses c ON a.course_id = c.course_id ORDER BY attendance_id DESC";
         ResultSet set = db.executeSearch(sql);
         //Trigger
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0);
         try {
             while (set.next()){
-                Object[] row = {set.getInt("attendance_id"), set.getInt("attendance_id"), set.getInt("course_id"), set.getString("attendance_date"), set.getInt("is_present")};
-                tableModel.addRow(row);
+               Object[] row = {set.getInt("a.attendance_id"), set.getString("student_number"), set.getString("course_name"), set.getString("attendance_date"), set.getInt("is_present")};
+                 tableModel.addRow(row);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
