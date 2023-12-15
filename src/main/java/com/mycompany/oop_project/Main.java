@@ -1,4 +1,4 @@
-package com.mycompany.attendancemanagementsystem;
+package com.mycompany.oop_project;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Database db = new Database();
 
-        db.connect("StudentAttendance.db");
+        db.connect();
 
         // db.createAccount("winmari22", "1234", "202200815", "Winmari", "Manzano",
         // "09/22/2022",

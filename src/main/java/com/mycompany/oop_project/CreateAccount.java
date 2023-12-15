@@ -1,5 +1,5 @@
 
-package com.mycompany.attendancemanagementsystem;
+package com.mycompany.oop_project;
 
 import java.awt.Color;
 
@@ -552,7 +552,7 @@ public class CreateAccount extends javax.swing.JFrame {
        
         Database db = new Database();
 
-        db.connect("StudentAttendance.db");
+        db.connect();
         
         String username = CreateUser.getText();
         String password = CreatePass.getText();

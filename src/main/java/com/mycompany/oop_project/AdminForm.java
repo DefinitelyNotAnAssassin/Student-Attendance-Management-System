@@ -1,12 +1,33 @@
-package com.mycompany.attendancemanagementsystem;
+package com.mycompany.oop_project;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 public class AdminForm extends javax.swing.JFrame {
 
    
     public AdminForm() {
         initComponents();
+        Database db = new Database();
+        db.connect();
+        String sql  = "SELECT * FROM Attendance";
+        ResultSet set = db.executeSearch(sql);
+        
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        tableModel.setRowCount(0);
+        try {
+            while (set.next()){
+                Object[] row = {set.getInt("attendance_id"), set.getInt("attendance_id"), set.getInt("course_id"), set.getString("attendance_date"), set.getInt("is_present")};
+                tableModel.addRow(row);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }
 
     
@@ -49,37 +70,40 @@ public class AdminForm extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
-        StudentNumber = new javax.swing.JTextField();
+        studentnumber = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        FirstName = new javax.swing.JTextField();
+        firstname = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        LastName = new javax.swing.JTextField();
+        lastname = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        Birthdate = new javax.swing.JTextField();
+        birthdate = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        Email = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         Button1 = new javax.swing.JButton();
         Button2 = new javax.swing.JButton();
         Button3 = new javax.swing.JButton();
         Button4 = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        email1 = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
         p4 = new javax.swing.JPanel();
         p5 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jLabel28 = new javax.swing.JLabel();
-        StudentNumber1 = new javax.swing.JTextField();
+        courseid = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        FirstName1 = new javax.swing.JTextField();
+        coursename = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        LastName1 = new javax.swing.JTextField();
+        coursecode = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         Button5 = new javax.swing.JButton();
         Button6 = new javax.swing.JButton();
@@ -519,15 +543,15 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel17.setText("Student Number");
         p3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 125, 360, -1));
 
-        StudentNumber.setBackground(new java.awt.Color(255, 249, 245));
-        StudentNumber.setFont(StudentNumber.getFont().deriveFont(StudentNumber.getFont().getSize()+2f));
-        StudentNumber.setBorder(null);
-        StudentNumber.addActionListener(new java.awt.event.ActionListener() {
+        studentnumber.setBackground(new java.awt.Color(255, 249, 245));
+        studentnumber.setFont(studentnumber.getFont().deriveFont(studentnumber.getFont().getSize()+2f));
+        studentnumber.setBorder(null);
+        studentnumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StudentNumberActionPerformed(evt);
+                studentnumberActionPerformed(evt);
             }
         });
-        p3.add(StudentNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 155, 203, 32));
+        p3.add(studentnumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 155, 203, 32));
 
         jLabel18.setText("____________________________");
         p3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 175, -1, -1));
@@ -537,15 +561,15 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel19.setText("First Name");
         p3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 205, 360, -1));
 
-        FirstName.setBackground(new java.awt.Color(255, 249, 245));
-        FirstName.setFont(FirstName.getFont().deriveFont(FirstName.getFont().getSize()+2f));
-        FirstName.setBorder(null);
-        FirstName.addActionListener(new java.awt.event.ActionListener() {
+        firstname.setBackground(new java.awt.Color(255, 249, 245));
+        firstname.setFont(firstname.getFont().deriveFont(firstname.getFont().getSize()+2f));
+        firstname.setBorder(null);
+        firstname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FirstNameActionPerformed(evt);
+                firstnameActionPerformed(evt);
             }
         });
-        p3.add(FirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 235, 205, 32));
+        p3.add(firstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 235, 205, 32));
 
         jLabel20.setText("____________________________");
         p3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 255, -1, -1));
@@ -555,15 +579,15 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel21.setText("Last Name");
         p3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 285, 360, -1));
 
-        LastName.setBackground(new java.awt.Color(255, 249, 245));
-        LastName.setFont(LastName.getFont().deriveFont(LastName.getFont().getSize()+2f));
-        LastName.setBorder(null);
-        LastName.addActionListener(new java.awt.event.ActionListener() {
+        lastname.setBackground(new java.awt.Color(255, 249, 245));
+        lastname.setFont(lastname.getFont().deriveFont(lastname.getFont().getSize()+2f));
+        lastname.setBorder(null);
+        lastname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LastNameActionPerformed(evt);
+                lastnameActionPerformed(evt);
             }
         });
-        p3.add(LastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 315, 216, 32));
+        p3.add(lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 315, 216, 32));
 
         jLabel22.setText("____________________________");
         p3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 335, -1, -1));
@@ -573,36 +597,36 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel23.setText("Birthdate");
         p3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 365, 360, -1));
 
-        Birthdate.setBackground(new java.awt.Color(255, 249, 245));
-        Birthdate.setFont(Birthdate.getFont().deriveFont(Birthdate.getFont().getSize()+2f));
-        Birthdate.setBorder(null);
-        Birthdate.addActionListener(new java.awt.event.ActionListener() {
+        birthdate.setBackground(new java.awt.Color(255, 249, 245));
+        birthdate.setFont(birthdate.getFont().deriveFont(birthdate.getFont().getSize()+2f));
+        birthdate.setBorder(null);
+        birthdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BirthdateActionPerformed(evt);
+                birthdateActionPerformed(evt);
             }
         });
-        p3.add(Birthdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 395, 209, 32));
+        p3.add(birthdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 395, 209, 32));
 
         jLabel24.setText("____________________________");
         p3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 415, -1, -1));
 
         jLabel25.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel25.setText("Email");
-        p3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 446, 360, -1));
+        jLabel25.setText("Username");
+        p3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, 360, -1));
 
-        Email.setBackground(new java.awt.Color(255, 249, 245));
-        Email.setFont(Email.getFont().deriveFont(Email.getFont().getSize()+2f));
-        Email.setBorder(null);
-        Email.addActionListener(new java.awt.event.ActionListener() {
+        username.setBackground(new java.awt.Color(255, 249, 245));
+        username.setFont(username.getFont().deriveFont(username.getFont().getSize()+2f));
+        username.setBorder(null);
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
-        p3.add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 476, 197, 32));
+        p3.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, 197, 32));
 
         jLabel26.setText("____________________________");
-        p3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 496, -1, -1));
+        p3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, -1, -1));
 
         Button1.setBackground(new java.awt.Color(189, 0, 0));
         Button1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
@@ -631,7 +655,7 @@ public class AdminForm extends javax.swing.JFrame {
         Button3.setBackground(new java.awt.Color(189, 0, 0));
         Button3.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         Button3.setForeground(new java.awt.Color(255, 255, 255));
-        Button3.setText("SAVE");
+        Button3.setText("SEARCH");
         Button3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Button3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -651,6 +675,24 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
         p3.add(Button4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 530, 110, 40));
+
+        jLabel34.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel34.setText("Email");
+        p3.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 446, 360, -1));
+
+        email1.setBackground(new java.awt.Color(255, 249, 245));
+        email1.setFont(email1.getFont().deriveFont(email1.getFont().getSize()+2f));
+        email1.setBorder(null);
+        email1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                email1ActionPerformed(evt);
+            }
+        });
+        p3.add(email1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 476, 197, 32));
+
+        jLabel35.setText("____________________________");
+        p3.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 496, -1, -1));
 
         CenterePanel.add(p3, "card4");
 
@@ -701,15 +743,15 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel28.setText("Course ID");
         p5.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 360, -1));
 
-        StudentNumber1.setBackground(new java.awt.Color(255, 249, 245));
-        StudentNumber1.setFont(StudentNumber1.getFont().deriveFont(StudentNumber1.getFont().getSize()+2f));
-        StudentNumber1.setBorder(null);
-        StudentNumber1.addActionListener(new java.awt.event.ActionListener() {
+        courseid.setBackground(new java.awt.Color(255, 249, 245));
+        courseid.setFont(courseid.getFont().deriveFont(courseid.getFont().getSize()+2f));
+        courseid.setBorder(null);
+        courseid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StudentNumber1ActionPerformed(evt);
+                courseidActionPerformed(evt);
             }
         });
-        p5.add(StudentNumber1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 203, 32));
+        p5.add(courseid, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 203, 32));
 
         jLabel29.setText("____________________________");
         p5.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
@@ -719,15 +761,15 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel30.setText("Course Name");
         p5.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 360, -1));
 
-        FirstName1.setBackground(new java.awt.Color(255, 249, 245));
-        FirstName1.setFont(FirstName1.getFont().deriveFont(FirstName1.getFont().getSize()+2f));
-        FirstName1.setBorder(null);
-        FirstName1.addActionListener(new java.awt.event.ActionListener() {
+        coursename.setBackground(new java.awt.Color(255, 249, 245));
+        coursename.setFont(coursename.getFont().deriveFont(coursename.getFont().getSize()+2f));
+        coursename.setBorder(null);
+        coursename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FirstName1ActionPerformed(evt);
+                coursenameActionPerformed(evt);
             }
         });
-        p5.add(FirstName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 205, 32));
+        p5.add(coursename, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 205, 32));
 
         jLabel31.setText("____________________________");
         p5.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
@@ -737,15 +779,15 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel32.setText("Course Code");
         p5.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 360, -1));
 
-        LastName1.setBackground(new java.awt.Color(255, 249, 245));
-        LastName1.setFont(LastName1.getFont().deriveFont(LastName1.getFont().getSize()+2f));
-        LastName1.setBorder(null);
-        LastName1.addActionListener(new java.awt.event.ActionListener() {
+        coursecode.setBackground(new java.awt.Color(255, 249, 245));
+        coursecode.setFont(coursecode.getFont().deriveFont(coursecode.getFont().getSize()+2f));
+        coursecode.setBorder(null);
+        coursecode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LastName1ActionPerformed(evt);
+                coursecodeActionPerformed(evt);
             }
         });
-        p5.add(LastName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 216, 32));
+        p5.add(coursecode, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 216, 32));
 
         jLabel33.setText("____________________________");
         p5.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, -1, -1));
@@ -777,7 +819,7 @@ public class AdminForm extends javax.swing.JFrame {
         Button7.setBackground(new java.awt.Color(189, 0, 0));
         Button7.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         Button7.setForeground(new java.awt.Color(255, 255, 255));
-        Button7.setText("SAVE");
+        Button7.setText("SEARCH");
         Button7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Button7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -873,6 +915,21 @@ public class AdminForm extends javax.swing.JFrame {
         onLeaveClick(btn2);
         onLeaveClick(btn3);
         onLeaveClick(btn4);
+        Database db = new Database();
+        db.connect();
+        String sql  = "SELECT * FROM Attendance ORDER BY attendance_id DESC";
+        ResultSet set = db.executeSearch(sql);
+        //Trigger
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        tableModel.setRowCount(0);
+        try {
+            while (set.next()){
+                Object[] row = {set.getInt("attendance_id"), set.getInt("attendance_id"), set.getInt("course_id"), set.getString("attendance_date"), set.getInt("is_present")};
+                tableModel.addRow(row);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         p1.setVisible(true);
         p2.setVisible(false);
@@ -883,6 +940,26 @@ public class AdminForm extends javax.swing.JFrame {
 
     private void btn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn2MouseClicked
         // TODO add your handling code here:
+        Database db = new Database();
+        db.connect();
+        
+
+         String sql  = "SELECT * FROM Courses";
+        ResultSet set = db.executeSearch(sql);
+        
+        DefaultTableModel tableModel = (DefaultTableModel) jTable2.getModel();
+        tableModel.setRowCount(0);
+        try {
+            while (set.next()){
+                Object[] row = {set.getInt("course_id"), set.getString("course_name"), set.getString("course_code")};
+                tableModel.addRow(row);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
         onLeaveClick(btn1);
         onClick(btn2);
         onLeaveClick(btn3);
@@ -906,6 +983,10 @@ public class AdminForm extends javax.swing.JFrame {
         p2.setVisible(false);
         p3.setVisible(true);
         p4.setVisible(false);
+        
+        
+        
+        
     }//GEN-LAST:event_btn3MouseClicked
 
     private void btn4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn4MouseClicked
@@ -932,69 +1013,147 @@ public class AdminForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn5MouseClicked
 
-    private void StudentNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StudentNumberActionPerformed
+    private void studentnumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentnumberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_StudentNumberActionPerformed
+    }//GEN-LAST:event_studentnumberActionPerformed
 
-    private void FirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstNameActionPerformed
+    private void firstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FirstNameActionPerformed
+    }//GEN-LAST:event_firstnameActionPerformed
 
-    private void LastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameActionPerformed
+    private void lastnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastnameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LastNameActionPerformed
+    }//GEN-LAST:event_lastnameActionPerformed
 
-    private void BirthdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BirthdateActionPerformed
+    private void birthdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_birthdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BirthdateActionPerformed
+    }//GEN-LAST:event_birthdateActionPerformed
 
-    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_EmailActionPerformed
+    }//GEN-LAST:event_usernameActionPerformed
 
     private void Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button1ActionPerformed
         // TODO add your handling code here:
+        Database db = new Database();
+        db.connect();
+        db.executeStatement("DELETE FROM Students WHERE student_number = " + studentnumber.getText());
+      
     }//GEN-LAST:event_Button1ActionPerformed
 
     private void Button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button2ActionPerformed
-        // TODO add your handling code here:
+         Database db = new Database();
+        db.connect();
+        
+        db.createAccount(username.getText(), "sdca2023", studentnumber.getText(), firstname.getText(), lastname.getText(), birthdate.getText(), email1.getText());
     }//GEN-LAST:event_Button2ActionPerformed
 
-    private void Button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Button3ActionPerformed
-
     private void Button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button4ActionPerformed
-        // TODO add your handling code here:
+        Database db = new Database();
+        db.connect();
+            
+         String sql  = "UPDATE Students SET first_name = '{first_name}', last_name = '{last_name}', email = '{email}', birthdate = '{birthdate}' WHERE student_number = " + studentnumber.getText();
+         String translated_sql = db.replaceWildcards(sql, "{first_name}", firstname.getText(),"{last_name}", lastname.getText(),"{email}", email1.getText(),"{birthdate}", birthdate.getText());
+         db.executeStatement(translated_sql);
+         
+         
+        
+        
+        
     }//GEN-LAST:event_Button4ActionPerformed
 
     private void Button8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button8ActionPerformed
-        // TODO add your handling code here:
+        Database db = new Database();
+        db.connect();
+        
+        
+        db.executeStatement("UPDATE Courses SET course_name = \'" + coursename.getText() +"\' WHERE course_code = '" + coursecode.getText() + "\'");
+        
     }//GEN-LAST:event_Button8ActionPerformed
 
     private void Button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button7ActionPerformed
-        // TODO add your handling code here:
+        Database db = new Database();
+        db.connect();
+        String sql;
+        if(coursecode.getText().equals("")){
+            sql = "SELECT * FROM Courses";
+        }
+        else{
+           sql  = "SELECT * FROM Courses WHERE course_code = \'" + coursecode.getText() + "\'";
+        }
+         
+         System.out.println(sql);
+        ResultSet set = db.executeSearch(sql);
+        
+        DefaultTableModel tableModel = (DefaultTableModel) jTable4.getModel();
+        tableModel.setRowCount(0);
+        try {
+            while (set.next()){
+                Object[] row = {set.getInt("course_id"), set.getString("course_name"), set.getString("course_code")};
+                tableModel.addRow(row);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_Button7ActionPerformed
 
     private void Button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button6ActionPerformed
-        // TODO add your handling code here:
+       Database db = new Database();
+       db.connect();
+       
+       db.createCourse(coursename.getText(), coursecode.getText());
+       
     }//GEN-LAST:event_Button6ActionPerformed
 
     private void Button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button5ActionPerformed
-        // TODO add your handling code here:
+        Database db = new Database();
+        db.connect();
+        
+        db.executeStatement("DELETE FROM Courses WHERE course_code = \'" + coursecode.getText() + "\'");
     }//GEN-LAST:event_Button5ActionPerformed
 
-    private void LastName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastName1ActionPerformed
+    private void coursecodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coursecodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LastName1ActionPerformed
+    }//GEN-LAST:event_coursecodeActionPerformed
 
-    private void FirstName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstName1ActionPerformed
+    private void coursenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coursenameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FirstName1ActionPerformed
+    }//GEN-LAST:event_coursenameActionPerformed
 
-    private void StudentNumber1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StudentNumber1ActionPerformed
+    private void courseidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_StudentNumber1ActionPerformed
+    }//GEN-LAST:event_courseidActionPerformed
+
+    private void email1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_email1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_email1ActionPerformed
+
+    private void Button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button3ActionPerformed
+       Database db = new Database();
+        db.connect();
+        String sql;
+        if (studentnumber.getText().equals("")){
+             sql = "SELECT * FROM Students";
+        }
+        else{
+              sql  = "SELECT * FROM Students WHERE student_number = " + studentnumber.getText();
+        }
+
+       
+         System.out.println(sql);
+        ResultSet set = db.executeSearch(sql);
+        
+        DefaultTableModel tableModel = (DefaultTableModel) jTable3.getModel();
+        tableModel.setRowCount(0);
+        try {
+            while (set.next()){
+                Object[] row = {set.getInt("student_number"), set.getString("first_name"), set.getString("last_name"),set.getString("birthdate"),set.getString("email")};
+                tableModel.addRow(row);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Button3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1033,7 +1192,6 @@ public class AdminForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AdminPanel;
-    private javax.swing.JTextField Birthdate;
     private javax.swing.JButton Button1;
     private javax.swing.JButton Button2;
     private javax.swing.JButton Button3;
@@ -1043,19 +1201,18 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton Button7;
     private javax.swing.JButton Button8;
     private javax.swing.JPanel CenterePanel;
-    private javax.swing.JTextField Email;
-    private javax.swing.JTextField FirstName;
-    private javax.swing.JTextField FirstName1;
     private javax.swing.JPanel HeaderPanel;
-    private javax.swing.JTextField LastName;
-    private javax.swing.JTextField LastName1;
-    private javax.swing.JTextField StudentNumber;
-    private javax.swing.JTextField StudentNumber1;
+    private javax.swing.JTextField birthdate;
     private javax.swing.JPanel btn1;
     private javax.swing.JPanel btn2;
     private javax.swing.JPanel btn3;
     private javax.swing.JPanel btn4;
     private javax.swing.JPanel btn5;
+    private javax.swing.JTextField coursecode;
+    private javax.swing.JTextField courseid;
+    private javax.swing.JTextField coursename;
+    private javax.swing.JTextField email1;
+    private javax.swing.JTextField firstname;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1083,6 +1240,8 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1097,11 +1256,14 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JTextField lastname;
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
     private javax.swing.JPanel p3;
     private javax.swing.JPanel p4;
     private javax.swing.JPanel p5;
     private com.raven.component.PanelCover panelCover1;
+    private javax.swing.JTextField studentnumber;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

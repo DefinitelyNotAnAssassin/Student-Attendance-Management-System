@@ -1,4 +1,4 @@
-package com.mycompany.attendancemanagementsystem;
+package com.mycompany.oop_project;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -31,12 +31,13 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        register = new javax.swing.JLabel();
+        AdminLoginPNL = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         txtPass = new javax.swing.JPasswordField();
         Disable = new javax.swing.JLabel();
         Show = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         jLabel14.setText("jLabel14");
 
@@ -153,21 +154,26 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/User_5.png"))); // NOI18N
         bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 280, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel7.setText("Don't have an account?");
-        bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 570, 149, -1));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel10.setText("Sign Up");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        register.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        register.setForeground(new java.awt.Color(102, 102, 102));
+        register.setText("Don't have an account?");
+        register.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                registerMouseClicked(evt);
             }
         });
-        bg.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 570, 71, -1));
+        bg.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 570, 149, -1));
+
+        AdminLoginPNL.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        AdminLoginPNL.setForeground(new java.awt.Color(102, 102, 102));
+        AdminLoginPNL.setText("Admin Login");
+        AdminLoginPNL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AdminLoginPNL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AdminLoginPNLMouseClicked(evt);
+            }
+        });
+        bg.add(AdminLoginPNL, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 570, 80, -1));
 
         txtUser.setFont(txtUser.getFont().deriveFont(txtUser.getFont().getSize()+2f));
         txtUser.setBorder(null);
@@ -200,6 +206,17 @@ public class LoginForm extends javax.swing.JFrame {
         });
         bg.add(Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 370, -1, -1));
 
+        jLabel13.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setText("Sign Up");
+        jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        bg.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 570, 71, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,30 +237,24 @@ public class LoginForm extends javax.swing.JFrame {
     private void ButtonSigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSigninActionPerformed
         
     Database db = new Database();
-    db.connect("StudentAttendance.db");
+    db.connect();
 
     String username = txtUser.getText();
     String password = txtPass.getText();
-
     User authenticatedUser = db.authenticateAccount(username, password);
-
-    if ("Admin1".equals(username) && "Admin123".equals(password)) {
-        AdminForm adminForm = new AdminForm();
-        adminForm.setVisible(true);
-        this.dispose();
-    } 
-    // Regular user login condition
-    else {
-         User current_user =  db.authenticateAccount(username, password);
+    
+        System.out.println(username);
+        System.out.println(password);
+   
 
         if (authenticatedUser != null) {
-            AttendanceForm af = new AttendanceForm(current_user);
+            AttendanceForm af = new AttendanceForm(authenticatedUser);
             af.setVisible(true);
             this.dispose();
         } else {
            // JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
-    }
+ 
     
     
      
@@ -309,12 +320,24 @@ public class LoginForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowOpened
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-    CreateAccount create = new CreateAccount();
-    create.show();
+    private void AdminLoginPNLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdminLoginPNLMouseClicked
+    AdminLogin adminLogin = new AdminLogin();
+    adminLogin.show();
     dispose();
     
-    }//GEN-LAST:event_jLabel10MouseClicked
+    }//GEN-LAST:event_AdminLoginPNLMouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        CreateAccount ac = new CreateAccount();
+        ac.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void registerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerMouseClicked
+        CreateAccount ac = new CreateAccount();
+        ac.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_registerMouseClicked
 
    
     
@@ -329,24 +352,25 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AdminLoginPNL;
     private javax.swing.JButton ButtonSignin;
     private javax.swing.JLabel Disable;
     private javax.swing.JLabel Show;
     private javax.swing.JLayeredPane bg;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private com.raven.component.PanelCover panelCover1;
+    private javax.swing.JLabel register;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables

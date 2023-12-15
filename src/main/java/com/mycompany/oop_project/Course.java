@@ -1,4 +1,4 @@
-package com.mycompany.attendancemanagementsystem;
+package com.mycompany.oop_project;
 
 public class Course {
     String course_name, course_code;

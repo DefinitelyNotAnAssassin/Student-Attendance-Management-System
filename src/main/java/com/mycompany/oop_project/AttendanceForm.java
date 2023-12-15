@@ -1,10 +1,13 @@
-package com.mycompany.attendancemanagementsystem;
+package com.mycompany.oop_project;
 import java.awt.Color;
 
 public class AttendanceForm extends javax.swing.JFrame {
-
+     User current_user;
+        
      public AttendanceForm(User current_user) {
         initComponents();
+        this.current_user = current_user;
+    
       
     }
 
@@ -182,25 +185,22 @@ public class AttendanceForm extends javax.swing.JFrame {
     
     private void ButtonAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAttendanceActionPerformed
     
-             Database db = new Database();
-
-         db.connect("StudentAttendance.db");
-         String course_code = txtCourseID.getText();
-                     
-          Course course = db.getCourse(course_code);
-         txtCourseID.setText("");
          
-        if (course == null) {
-        
-        return; 
-    }
+         String course_code = txtCourseID.getText();
+         Database db = new Database();
+         db.connect();
+         Course course = db.getCourse(course_code);
+         txtCourseID.setText("");
+            //db.isAccountExisting(current_user.student_number);
+            
+            
+            
+         
+         db.studentAttendance(current_user.student_number, course.course_id);
+      
 
     
-    String student_number = "202201172"; 
-    int course_id = 1; 
-    
-    db.studentAttendance(student_number, course_id);
-       
+  
          
     }//GEN-LAST:event_ButtonAttendanceActionPerformed
 
@@ -275,7 +275,7 @@ public class AttendanceForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AttendanceForm(null).setVisible(true);;
+                new AttendanceForm(new User()).setVisible(true);;
             }
         });
     }

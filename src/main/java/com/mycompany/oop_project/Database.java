@@ -1,4 +1,4 @@
-package com.mycompany.attendancemanagementsystem;
+package com.mycompany.oop_project;
 
 import java.awt.Component;
 import java.awt.List;
@@ -12,22 +12,27 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import org.sqlite.SQLiteException;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
 
 public class Database {
+    
+    
+    //String database_url;
       
     public Connection conn = null;
 
-    public void connect(String database_name) {
-        String database_url = "jdbc:sqlite:D:\\VB.NET\\AttendanceManagementSystem\\src\\main\\java\\com\\mycompany\\attendancemanagementsystem\\" + database_name;
-
+    public void connect() {
         try {
-            this.conn = DriverManager.getConnection(database_url);
-
-        } catch (SQLException e) {
-            System.out.println(e);
+            //String database_url = "jdbc:sqlite:C:\\Users\\Winmri\\Documents\\NetBeansProjects\\Student-Attendance-Management-System\\src\\main\\java\\com\\mycompany\\oop_project\\" + database_name;
+            //this.database_url = database_url;
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:MySQL://localhost:3306/manager","root","");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -127,6 +132,29 @@ public class Database {
 
     }
 
+    
+    public String replaceWildcards(String query, Object... keyValues) {
+    if (keyValues.length % 2 != 0) {
+        throw new IllegalArgumentException("Number of key-value pairs must be even.");
+    }
+
+    for (int i = 0; i < keyValues.length; i += 2) {
+        String wildcard = (String) keyValues[i];
+        Object replacement = keyValues[i + 1];
+
+        if (replacement instanceof String) {
+            query = query.replace(wildcard, (String) replacement);
+        } else if (replacement instanceof Integer) {
+            query = query.replace(wildcard, String.valueOf((Integer) replacement));
+        } else if (replacement instanceof Float) {
+            query = query.replace(wildcard, String.valueOf((Float) replacement));
+        } else {
+            System.out.println("Error");
+        }
+    }
+
+    return query;
+}
     public void studentAttendance(String student_number, int course_id) {
 
         try {
@@ -139,14 +167,18 @@ public class Database {
             System.out.println(isExisting);
             ResultSet present = executeSearch(isExisting);
 
-            if (!present.isBeforeFirst()) {
-                String sql = "INSERT INTO Attendance (student_id, attendance_date, is_present, course_id) VALUES (?, ?, ?, ?)";
-                PreparedStatement statement = conn.prepareStatement(sql);
-                statement.setString(1, student_number);
-                statement.setString(2, today.toString());
-                statement.setInt(3, 1);
-                statement.setInt(4, course_id);
-                statement.execute();
+            if (!present.isBeforeFirst()) {                
+                present.close();
+                String sql = "INSERT INTO Attendance (student_id, attendance_date, is_present, course_id) VALUES ({student_id}, '{attendance_date}', {is_present}, {course_id})";
+                System.out.println(sql);
+                
+               
+                String new_sql = replaceWildcards(sql, "{student_id}", student_number,"{attendance_date}", today.toString(),"{is_present}", 1,"{course_id}", course_id);
+                System.out.println(new_sql);
+                System.out.println("Ping");
+                executeStatement(new_sql);
+                System.out.println("Pong");
+                
                 JOptionPane.showMessageDialog(null, student_number + " Attendance Success.");
             } else {
                  JOptionPane.showMessageDialog(null, "Attendance / Student Already Present for " + today + " at Course number " + course_id);
@@ -234,7 +266,9 @@ public class Database {
             JOptionPane.showMessageDialog(null, "Error creating account: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    
+    
     public User authenticateAccount(String username, String password) {
         String authenticate = "SELECT * FROM Students WHERE username = " + "\'" + username + "\' " + "AND password = "
                 + '\'' + password + '\'';
@@ -243,12 +277,12 @@ public class Database {
             ResultSet result = executeSearch(authenticate);
             if (!result.isBeforeFirst()) {
                JOptionPane.showMessageDialog(null, "Incorrect username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
-                
-                
-                
-                
-                User user = new User();
-                return user;
+               
+               
+               return null; 
+               
+               
+               // if current_user is null 
             } else {
                 JOptionPane.showMessageDialog(null, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
@@ -332,6 +366,8 @@ public class Database {
         }
         return null;
     }
+    
+    
     
     
     /*

@@ -1,5 +1,5 @@
 
-package com.mycompany.attendancemanagementsystem;
+package com.mycompany.oop_project;
 
 import java.awt.Color;
 
